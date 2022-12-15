@@ -38,7 +38,7 @@ class ResultPage : AppCompatActivity() {
 
         postalViewModel.makeAPICall(postalCodeInput)
 
-        postalViewModel.getPostalCodeListDetails().observe(this) {
+        postalViewModel.postalCodeList.observe(this) {
             val searchResults = it
             if (searchResults != null) {
                 recyclerAdapter.setAddressList(listOf(searchResults))

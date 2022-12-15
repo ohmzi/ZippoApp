@@ -5,13 +5,18 @@ import com.example.zippoapp.model.data.PostalCodeListData
 
 class Repo {
     private val apiCall = APICalls()
-    private var postalCodeList: MutableLiveData<PostalCodeListData?> = MutableLiveData()
 
-    fun getPostalCodeList(postalCodeInput: String
-    ): MutableLiveData<PostalCodeListData?> {
-        postalCodeList =
-            apiCall.postalCodeAPICall(postalCodeInput)
-        return postalCodeList
+    suspend fun getPostalCodeList(
+        postalCodeInput: String,
+    ): PostalCodeListData? {
+        return try {
+            apiCall.postalCodeAPICall(
+                postalCodeInput
+            )
+        } catch (e: Exception) {
+            null
+        }
+
     }
 
 }
