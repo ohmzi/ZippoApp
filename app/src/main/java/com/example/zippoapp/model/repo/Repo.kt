@@ -1,6 +1,5 @@
 package com.example.zippoapp.model.repo
 
-import androidx.lifecycle.MutableLiveData
 import com.example.zippoapp.model.data.PostalCodeListData
 
 class Repo {

@@ -3,9 +3,9 @@ package com.example.zippoapp.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.zippoapp.model.data.PostalCodeListData
 import com.example.zippoapp.model.repo.Repo
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
 
@@ -19,7 +19,6 @@ class PostalViewModel : ViewModel() {
 
     fun makeAPICall(postalCodeInput: String) {
         viewModelScope.launch {
-
 
             val res: Array<String> = postalCodeInput.split(",").toTypedArray()
             for (myStr in res) {

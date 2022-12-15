@@ -20,21 +20,22 @@ class ResultPage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         binding = ResultsPageBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
         binding.rvRestaurants.layoutManager = LinearLayoutManager(this@ResultPage)
         binding.rvRestaurants.adapter = recyclerAdapter
+
         val postalViewModel: PostalViewModel =
             ViewModelProvider(this)[PostalViewModel::class.java]
+
         intent.extras.let {
             val bundle = it
             if (bundle != null) {
                 postalCodeInput = bundle.getString("postalCodeInput") as String
             }
         }
-
 
         postalViewModel.makeAPICall(postalCodeInput)
 
