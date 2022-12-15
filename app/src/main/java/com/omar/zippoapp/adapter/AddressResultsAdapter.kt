@@ -1,12 +1,12 @@
-package com.example.zippoapp.adapter
+package com.omar.zippoapp.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.zippoapp.activity.ResultPage
-import com.example.zippoapp.databinding.ItemAddressBinding
-import com.example.zippoapp.model.data.PostalCodeListData
+import com.omar.zippoapp.activity.ResultPage
+import com.omar.zippoapp.databinding.ItemAddressBinding
+import com.omar.zippoapp.model.data.PostalCodeListData
 
 class AddressResultsAdapter(private val mainActivity: ResultPage) :
     RecyclerView.Adapter<AddressResultsAdapter.ViewHolder>() {
@@ -62,7 +62,8 @@ class AddressResultsAdapter(private val mainActivity: ResultPage) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         postalCodeList?.get(position)?.let { holder.bindPostalBasicDetail((it), mainActivity) }
-        fullAddressDetailList?.get(position)?.let { holder.bindPostalFullDetail((it), mainActivity) }
+        fullAddressDetailList?.get(position)
+            ?.let { holder.bindPostalFullDetail((it), mainActivity) }
     }
 
     override fun getItemCount(): Int {

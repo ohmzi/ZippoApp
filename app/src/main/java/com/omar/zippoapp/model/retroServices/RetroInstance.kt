@@ -1,4 +1,4 @@
-package com.example.zippoapp.model.retroServices
+package com.omar.zippoapp.model.retroServices
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

@@ -1,4 +1,4 @@
-package com.example.zippoapp
+package com.omar.zippoapp
 
 import org.junit.Test
 

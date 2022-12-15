@@ -1,6 +1,6 @@
-package com.example.zippoapp.model.repo
+package com.omar.zippoapp.model.repo
 
-import com.example.zippoapp.model.data.PostalCodeListData
+import com.omar.zippoapp.model.data.PostalCodeListData
 
 class Repo {
     private val apiCall = APICalls()

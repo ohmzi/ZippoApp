@@ -1,21 +1,22 @@
-package com.example.zippoapp.activity
+package com.omar.zippoapp.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.zippoapp.adapter.AddressResultsAdapter
-import com.example.zippoapp.databinding.ResultsPageBinding
-import com.example.zippoapp.viewModel.PostalViewModel
+import com.omar.zippoapp.adapter.AddressResultsAdapter
+import com.omar.zippoapp.databinding.ResultsPageBinding
+import com.omar.zippoapp.viewModel.PostalViewModel
 
 class ResultPage : AppCompatActivity() {
 
 
     private lateinit var binding: ResultsPageBinding
     private val recyclerAdapter by lazy { AddressResultsAdapter(this) }
-    private var postalCodeInput: String = "80036"
+    private lateinit var postalCodeInput: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,14 +42,20 @@ class ResultPage : AppCompatActivity() {
 
         postalViewModel.postalCodeList.observe(this) {
             val searchResults = it
-            if (searchResults != null) {
+
+            if (searchResults != null && searchResults.country != "") {
+                Log.d("testing searchResults ", searchResults.country.toString())
                 recyclerAdapter.setAddressList(listOf(searchResults))
                 recyclerAdapter.setAddressFullDetailList(searchResults.places)
                 recyclerAdapter.notifyDataSetChanged()
                 binding.rvRestaurants.visibility = View.VISIBLE
-            } else
+            } else {
                 Toast.makeText(this, "Error in getting list", Toast.LENGTH_SHORT).show()
+            }
 
+        }
+        postalViewModel.errorLiveData.observe(this) {
+            Toast.makeText(this, " API Error ", Toast.LENGTH_LONG).show()
         }
     }
 

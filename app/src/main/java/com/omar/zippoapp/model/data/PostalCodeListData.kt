@@ -1,4 +1,4 @@
-package com.example.zippoapp.model.data
+package com.omar.zippoapp.model.data
 
 import com.google.gson.annotations.SerializedName
 

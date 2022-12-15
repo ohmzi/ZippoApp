@@ -1,10 +1,10 @@
-package com.example.zippoapp.activity
+package com.omar.zippoapp.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.zippoapp.databinding.ActivityMainBinding
+import com.omar.zippoapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

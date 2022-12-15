@@ -1,11 +1,12 @@
-package com.example.zippoapp.viewModel
+package com.omar.zippoapp.viewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.zippoapp.model.data.PostalCodeListData
-import com.example.zippoapp.model.repo.Repo
+import com.omar.zippoapp.model.data.PostalCodeListData
+import com.omar.zippoapp.model.repo.Repo
 import kotlinx.coroutines.launch
 
 
@@ -20,22 +21,20 @@ class PostalViewModel : ViewModel() {
     fun makeAPICall(postalCodeInput: String) {
         viewModelScope.launch {
 
-            val res: Array<String> = postalCodeInput.split(",").toTypedArray()
-            for (myStr in res) {
+            val postalCodeInputArray: Array<String> = postalCodeInput.split(",").toTypedArray()
+            for (postalCodeInputIndividual in postalCodeInputArray) {
 
                 val response =
-                    repo.getPostalCodeList(myStr)
+                    repo.getPostalCodeList(postalCodeInputIndividual)
 
                 if (response != null) {
                     _postalCodeList.value = response
+
                 } else {
                     _errorLiveData.value = "error occurred"
+
                 }
             }
         }
     }
-
-
-
-
 }
