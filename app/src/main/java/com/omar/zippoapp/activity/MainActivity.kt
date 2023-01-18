@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
             with(binding) {
                 postalCodeInput = postalCodeTextInput.text.toString()
             }
-            if (postalCodeInput.equals("")) {
+            if (postalCodeInput.isEmpty()) {
                 Toast.makeText(this, "Please Enter Postal Code", Toast.LENGTH_SHORT).show()
 
             } else {

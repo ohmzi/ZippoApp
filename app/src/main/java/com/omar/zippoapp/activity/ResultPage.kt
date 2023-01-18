@@ -17,6 +17,8 @@ class ResultPage : AppCompatActivity() {
     private lateinit var binding: ResultsPageBinding
     private val recyclerAdapter by lazy { AddressResultsAdapter(this) }
     private lateinit var postalCodeInput: String
+    val postalViewModel: PostalViewModel =
+        ViewModelProvider(this)[PostalViewModel::class.java]
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,17 +27,13 @@ class ResultPage : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        binding.rvRestaurants.layoutManager = LinearLayoutManager(this@ResultPage)
-        binding.rvRestaurants.adapter = recyclerAdapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(this@ResultPage)
+        binding.recyclerView.adapter = recyclerAdapter
 
-        val postalViewModel: PostalViewModel =
-            ViewModelProvider(this)[PostalViewModel::class.java]
 
-        intent.extras.let {
-            val bundle = it
-            if (bundle != null) {
-                postalCodeInput = bundle.getString("postalCodeInput") as String
-            }
+
+        intent.extras?.let {
+           postalCodeInput = it.getString("postalCodeInput") as String
         }
 
         postalViewModel.makeAPICall(postalCodeInput)
@@ -47,8 +45,8 @@ class ResultPage : AppCompatActivity() {
                 Log.d("testing searchResults ", searchResults.country.toString())
                 recyclerAdapter.setAddressList(listOf(searchResults))
                 recyclerAdapter.setAddressFullDetailList(searchResults.places)
-                recyclerAdapter.notifyDataSetChanged()
-                binding.rvRestaurants.visibility = View.VISIBLE
+                recyclerAdapter.notifyDataSetChanged() //itemrangechange
+                binding.recyclerView.visibility = View.VISIBLE
             } else {
                 Toast.makeText(this, "Error in getting list", Toast.LENGTH_SHORT).show()
             }

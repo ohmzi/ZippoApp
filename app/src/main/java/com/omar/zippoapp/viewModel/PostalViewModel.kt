@@ -1,6 +1,5 @@
 package com.omar.zippoapp.viewModel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +11,9 @@ import kotlinx.coroutines.launch
 
 class PostalViewModel : ViewModel() {
     private val repo by lazy { Repo() }
-    private val _postalCodeList: MutableLiveData<PostalCodeListData?> = MutableLiveData()
+    private var _postalCodeList: MutableLiveData<PostalCodeListData?> = MutableLiveData()
+    private val _postalCodeList2: MutableLiveData<PostalCodeListData?> = MutableLiveData()
+
     val postalCodeList: LiveData<PostalCodeListData?> = _postalCodeList
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String> = _errorLiveData
@@ -28,13 +29,12 @@ class PostalViewModel : ViewModel() {
                     repo.getPostalCodeList(postalCodeInputIndividual)
 
                 if (response != null) {
-                    _postalCodeList.value = response
-
+                     _postalCodeList2.value = response
                 } else {
                     _errorLiveData.value = "error occurred"
-
                 }
             }
+            _postalCodeList=_postalCodeList2
         }
     }
 }

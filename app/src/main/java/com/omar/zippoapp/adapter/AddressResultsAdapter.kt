@@ -27,7 +27,7 @@ class AddressResultsAdapter(private val mainActivity: ResultPage) :
     inner class ViewHolder(private val binding: ItemAddressBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bindPostalBasicDetail(addressList: PostalCodeListData, mainActivity: ResultPage) {
+        fun bindPostalBasicDetail(addressList: PostalCodeListData) {
             with(binding)
             {
                 tvPostalCodeNum.text = "Postal Code: " + addressList.postalCodeNum
@@ -61,7 +61,7 @@ class AddressResultsAdapter(private val mainActivity: ResultPage) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        postalCodeList?.get(position)?.let { holder.bindPostalBasicDetail((it), mainActivity) }
+        postalCodeList?.get(position)?.let { holder.bindPostalBasicDetail((it)) }
         fullAddressDetailList?.get(position)
             ?.let { holder.bindPostalFullDetail((it), mainActivity) }
     }
