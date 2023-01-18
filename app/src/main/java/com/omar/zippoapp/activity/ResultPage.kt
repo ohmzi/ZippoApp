@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.omar.zippoapp.adapter.AddressResultsAdapter
@@ -17,25 +18,24 @@ class ResultPage : AppCompatActivity() {
     private lateinit var binding: ResultsPageBinding
     private val recyclerAdapter by lazy { AddressResultsAdapter(this) }
     private lateinit var postalCodeInput: String
+    private lateinit var view: ConstraintLayout
+    private val postalViewModel: PostalViewModel by lazy {
+        ViewModelProvider(this)[PostalViewModel::class.java]
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding = ResultsPageBinding.inflate(layoutInflater)
-        val view = binding.root
+        view = binding.root
         setContentView(view)
 
         binding.rvRestaurants.layoutManager = LinearLayoutManager(this@ResultPage)
         binding.rvRestaurants.adapter = recyclerAdapter
 
-        val postalViewModel: PostalViewModel =
-            ViewModelProvider(this)[PostalViewModel::class.java]
-
-        intent.extras.let {
-            val bundle = it
-            if (bundle != null) {
-                postalCodeInput = bundle.getString("postalCodeInput") as String
-            }
+        intent.extras?.let {
+            postalCodeInput = it.getString("postalCodeInput") as String
         }
 
         postalViewModel.makeAPICall(postalCodeInput)
@@ -57,6 +57,20 @@ class ResultPage : AppCompatActivity() {
         postalViewModel.errorLiveData.observe(this) {
             Toast.makeText(this, " API Error ", Toast.LENGTH_LONG).show()
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.d("onSaveInstanceState", postalCodeInput)
+        outState.putString("postalCodeInput", postalCodeInput)
+    }
+
+    override fun onRestoreInstanceState(
+        savedInstanceState: Bundle,
+    ) {
+        super.onRestoreInstanceState(savedInstanceState)
+        postalCodeInput = savedInstanceState.getString("postalCodeInput", postalCodeInput)
+        Log.d("onRestoreInstanceState", postalCodeInput)
     }
 
     override fun onSupportNavigateUp(): Boolean {

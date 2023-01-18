@@ -12,7 +12,9 @@ import kotlinx.coroutines.launch
 
 class PostalViewModel : ViewModel() {
     private val repo by lazy { Repo() }
-    private val _postalCodeList: MutableLiveData<PostalCodeListData?> = MutableLiveData()
+    private var _postalCodeList: MutableLiveData<PostalCodeListData?> = MutableLiveData()
+    private val _postalCodeList2: MutableLiveData<PostalCodeListData?> = MutableLiveData()
+
     val postalCodeList: LiveData<PostalCodeListData?> = _postalCodeList
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String> = _errorLiveData
@@ -28,6 +30,7 @@ class PostalViewModel : ViewModel() {
                     repo.getPostalCodeList(postalCodeInputIndividual)
 
                 if (response != null) {
+//                    _postalCodeList2.value = response
                     _postalCodeList.value = response
 
                 } else {
@@ -36,5 +39,7 @@ class PostalViewModel : ViewModel() {
                 }
             }
         }
+       // _postalCodeList.value=_postalCodeList2.value
+
     }
 }
