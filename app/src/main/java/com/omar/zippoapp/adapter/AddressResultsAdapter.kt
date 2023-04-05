@@ -12,24 +12,17 @@ class AddressResultsAdapter(private val mainActivity: ResultPage) :
     RecyclerView.Adapter<AddressResultsAdapter.ViewHolder>() {
 
     private var postalCodeList: List<PostalCodeListData>? = null
-    private var fullAddressDetailList: List<PostalCodeListData.FullAddressDetails>? = null
 
     fun setAddressList(searchResults: List<PostalCodeListData>?) {
         this.postalCodeList = searchResults
 
     }
 
-    fun setAddressFullDetailList(searchResultsFullDetailList: List<PostalCodeListData.FullAddressDetails>?) {
-        this.fullAddressDetailList = searchResultsFullDetailList
-
-    }
-
     inner class ViewHolder(private val binding: ItemAddressBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bindPostalBasicDetail(addressList: PostalCodeListData, mainActivity: ResultPage) {
-            with(binding)
-            {
+        fun bindPostalBasicDetail(addressList: PostalCodeListData) {
+            with(binding) {
                 tvPostalCodeNum.text = "Postal Code: " + addressList.postalCodeNum
                 tvCountry.text = "Country" + addressList.country
                 tvCountryAbb.text = "Country Abbreviation: " + addressList.countryAbbreviation
@@ -37,12 +30,8 @@ class AddressResultsAdapter(private val mainActivity: ResultPage) :
         }
 
         @SuppressLint("SetTextI18n")
-        fun bindPostalFullDetail(
-            addressList: PostalCodeListData.FullAddressDetails,
-            mainActivity: ResultPage,
-        ) {
-            with(binding)
-            {
+        fun bindPostalFullDetail(addressList: PostalCodeListData.FullAddressDetails) {
+            with(binding) {
                 tvCity.text = "City: " + addressList.city
                 tvState.text = "State Abbreviation: " + addressList.state
                 tvStateAbb.text = "State Abbreviation: " + addressList.stateAbbreviation
@@ -61,9 +50,10 @@ class AddressResultsAdapter(private val mainActivity: ResultPage) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        postalCodeList?.get(position)?.let { holder.bindPostalBasicDetail((it), mainActivity) }
-        fullAddressDetailList?.get(position)
-            ?.let { holder.bindPostalFullDetail((it), mainActivity) }
+        postalCodeList?.get(position)?.let {
+            holder.bindPostalBasicDetail((it))
+            holder.bindPostalFullDetail((it.places.first()))
+        }
     }
 
     override fun getItemCount(): Int {

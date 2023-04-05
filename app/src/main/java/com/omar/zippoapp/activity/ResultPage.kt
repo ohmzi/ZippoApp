@@ -43,15 +43,18 @@ class ResultPage : AppCompatActivity() {
         postalViewModel.postalCodeList.observe(this) {
             val searchResults = it
 
-            if (searchResults != null && searchResults.country != "") {
-                Log.d("testing searchResults ", searchResults.country.toString())
-                recyclerAdapter.setAddressList(listOf(searchResults))
-                recyclerAdapter.setAddressFullDetailList(searchResults.places)
-                recyclerAdapter.notifyDataSetChanged()
-                binding.rvRestaurants.visibility = View.VISIBLE
-            } else {
-                Toast.makeText(this, "Error in getting list", Toast.LENGTH_SHORT).show()
-            }
+            recyclerAdapter.setAddressList(searchResults)
+            recyclerAdapter.notifyDataSetChanged()
+            binding.rvRestaurants.visibility = View.VISIBLE
+
+//            if (searchResults != null && searchResults.country != "") {
+//                Log.d("testing searchResults ", searchResults.country.toString())
+//                recyclerAdapter.setAddressList(listOf(searchResults))
+//                recyclerAdapter.setAddressFullDetailList(searchResults.places)
+//
+//            } else {
+//                Toast.makeText(this, "Error in getting list", Toast.LENGTH_SHORT).show()
+//            }
 
         }
         postalViewModel.errorLiveData.observe(this) {
