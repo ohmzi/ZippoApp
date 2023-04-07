@@ -14,7 +14,9 @@ import com.omar.zippoapp.databinding.ResultsPageBinding
 import com.omar.zippoapp.viewModel.PostalViewModel
 
 class ResultPage : AppCompatActivity() {
-
+    companion object {
+        var isInvalidInput = false
+    }
 
     private lateinit var binding: ResultsPageBinding
     private val recyclerAdapter by lazy { AddressResultsAdapter(this) }
@@ -24,7 +26,6 @@ class ResultPage : AppCompatActivity() {
         ViewModelProvider(this)[PostalViewModel::class.java]
     }
 
-
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,35 +34,30 @@ class ResultPage : AppCompatActivity() {
         view = binding.root
         setContentView(view)
 
-        binding.rvRestaurants.layoutManager = LinearLayoutManager(this@ResultPage)
-        binding.rvRestaurants.adapter = recyclerAdapter
+        binding.rvPostalDetails.layoutManager = LinearLayoutManager(this@ResultPage)
+        binding.rvPostalDetails.adapter = recyclerAdapter
 
         intent.extras?.let {
             postalCodeInput = it.getString("postalCodeInput") as String
         }
-
+        isInvalidInput=false
         postalViewModel.makeAPICall(postalCodeInput)
 
+        if(isInvalidInput){
+            Toast.makeText(this, "Invalid Input ", Toast.LENGTH_LONG).show()
+
+        }
         postalViewModel.postalCodeList.observe(this) {
             val searchResults = it
-
             recyclerAdapter.setAddressList(searchResults)
             recyclerAdapter.notifyDataSetChanged()
-            binding.rvRestaurants.visibility = View.VISIBLE
-
-//            if (searchResults != null && searchResults.country != "") {
-//                Log.d("testing searchResults ", searchResults.country.toString())
-//                recyclerAdapter.setAddressList(listOf(searchResults))
-//                recyclerAdapter.setAddressFullDetailList(searchResults.places)
-//
-//            } else {
-//                Toast.makeText(this, "Error in getting list", Toast.LENGTH_SHORT).show()
-//            }
-
+            binding.errorImageView.visibility =View.INVISIBLE
+            binding.rvPostalDetails.visibility = View.VISIBLE
         }
         postalViewModel.errorLiveData.observe(this) {
             Toast.makeText(this, " API Error ", Toast.LENGTH_LONG).show()
         }
+
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
