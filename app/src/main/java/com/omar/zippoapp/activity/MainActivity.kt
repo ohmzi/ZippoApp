@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         searchButton.setOnClickListener {
             with(binding) {
-                postalCodeInput = postalCodeTextInput.text.toString()
+                postalCodeInput = postalCodeTextInput.text.toString().replace(" ", "")
             }
             if (postalCodeInput.isEmpty()) {
                 Toast.makeText(this, "Please Enter Postal Code", Toast.LENGTH_SHORT).show()
@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
                 intent.putExtras(extras)
                 startActivity(intent)
             }
-
         }
     }
 

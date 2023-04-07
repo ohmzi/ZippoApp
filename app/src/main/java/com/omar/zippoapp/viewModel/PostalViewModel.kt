@@ -25,6 +25,7 @@ class PostalViewModel : ViewModel() {
 
             val postalCodeResultList = arrayListOf<PostalCodeListData>()
             val postalCodeInputArray: Array<String> = postalCodeInput.split(",").toTypedArray()
+
             for (postalCodeInputIndividual in postalCodeInputArray) {
 
                 val response =
