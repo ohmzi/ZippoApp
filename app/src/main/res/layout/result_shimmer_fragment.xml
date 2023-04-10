@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
+
+    <TextView
+        android:visibility="visible"
+        android:id="@+id/tvPostalCodeNumShimmer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/darker_gray"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="                                      "/>
+
+    <TextView
+        android:id="@+id/tvCountryShimmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/darker_gray"
+        android:textColor="@android:color/black"
+
+        app:layout_constraintStart_toStartOf="@+id/tvPostalCodeNumShimmer"
+        app:layout_constraintTop_toBottomOf="@+id/tvPostalCodeNumShimmer"
+        android:text="                                                     "/>
+
+    <TextView
+        android:id="@+id/tvCountryAbbShimmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/darker_gray"
+        android:textColor="@android:color/black"
+
+        app:layout_constraintStart_toStartOf="@+id/tvPostalCodeNumShimmer"
+        app:layout_constraintTop_toBottomOf="@+id/tvCountryShimmer"
+        android:text="                                                     "/>
+
+    <TextView
+        android:id="@+id/tvStateShimmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/darker_gray"
+        android:textColor="@android:color/black"
+
+        app:layout_constraintStart_toStartOf="@+id/tvPostalCodeNumShimmer"
+        app:layout_constraintTop_toBottomOf="@+id/tvCountryAbbShimmer"
+        android:text="                                                     "/>
+
+    <TextView
+        android:id="@+id/tvStateAbbShimmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/darker_gray"
+        android:textColor="@android:color/black"
+
+        app:layout_constraintStart_toStartOf="@+id/tvPostalCodeNumShimmer"
+        app:layout_constraintTop_toBottomOf="@+id/tvStateShimmer"
+        android:text="                                                     "/>
+
+
+    <TextView
+        android:id="@+id/tvCityShimmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/darker_gray"
+        android:textColor="@android:color/black"
+
+        app:layout_constraintStart_toStartOf="@+id/tvPostalCodeNumShimmer"
+        app:layout_constraintTop_toBottomOf="@+id/tvStateAbbShimmer"
+        android:text="                                                     "/>
+
+    <TextView
+        android:id="@+id/tvLongitudeShimmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/darker_gray"
+        android:textColor="@android:color/black"
+
+        app:layout_constraintStart_toStartOf="@+id/tvPostalCodeNumShimmer"
+        app:layout_constraintTop_toBottomOf="@+id/tvCityShimmer"
+        android:text="                                                     "/>
+
+    <TextView
+        android:id="@+id/tvLatitudeShimmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/darker_gray"
+        android:textColor="@android:color/black"
+
+        app:layout_constraintStart_toStartOf="@+id/tvPostalCodeNumShimmer"
+        app:layout_constraintTop_toBottomOf="@+id/tvLongitudeShimmer"
+        android:text="                                                     "/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

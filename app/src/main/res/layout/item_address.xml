@@ -17,25 +17,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:textAllCaps="false"
         tools:text="Postal Code" />
+
     <TextView
         android:id="@+id/tvCountry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="@+id/tvPostalCodeNum"
         app:layout_constraintTop_toBottomOf="@+id/tvPostalCodeNum"
         tools:text="Country" />
+
     <TextView
         android:id="@+id/tvCountryAbb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="@+id/tvPostalCodeNum"
         app:layout_constraintTop_toBottomOf="@+id/tvCountry"
         tools:text="Country Abbreviation" />
+
     <TextView
         android:id="@+id/tvState"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="@+id/tvPostalCodeNum"
         app:layout_constraintTop_toBottomOf="@+id/tvCountryAbb"
         tools:text="State" />
@@ -44,6 +51,7 @@
         android:id="@+id/tvStateAbb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="@+id/tvPostalCodeNum"
         app:layout_constraintTop_toBottomOf="@+id/tvState"
         tools:text="State Abbreviation" />
@@ -53,20 +61,25 @@
         android:id="@+id/tvCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="@+id/tvPostalCodeNum"
         app:layout_constraintTop_toBottomOf="@+id/tvStateAbb"
         tools:text="City" />
+
     <TextView
         android:id="@+id/tvLongitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="@+id/tvPostalCodeNum"
         app:layout_constraintTop_toBottomOf="@+id/tvCity"
         tools:text="Longitude" />
+
     <TextView
         android:id="@+id/tvLatitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="@+id/tvPostalCodeNum"
         app:layout_constraintTop_toBottomOf="@+id/tvLongitude"
         tools:text="Latitude" />

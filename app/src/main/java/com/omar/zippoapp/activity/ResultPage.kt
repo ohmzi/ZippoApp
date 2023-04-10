@@ -33,10 +33,12 @@ class ResultPage : AppCompatActivity() {
         binding = ResultsPageBinding.inflate(layoutInflater)
         view = binding.root
         setContentView(view)
+        with(binding) {
 
-        binding.rvPostalDetails.layoutManager = LinearLayoutManager(this@ResultPage)
-        binding.rvPostalDetails.adapter = recyclerAdapter
-
+            rvPostalDetails.layoutManager = LinearLayoutManager(this@ResultPage)
+            rvPostalDetails.adapter = recyclerAdapter
+            shimmerView.startShimmer()
+        }
         intent.extras?.let {
             postalCodeInput = it.getString("postalCodeInput") as String
         }
@@ -51,8 +53,13 @@ class ResultPage : AppCompatActivity() {
             val searchResults = it
             recyclerAdapter.setAddressList(searchResults)
             recyclerAdapter.notifyDataSetChanged()
-            binding.errorImageView.visibility =View.INVISIBLE
-            binding.rvPostalDetails.visibility = View.VISIBLE
+
+            with(binding) {
+                shimmerView.stopShimmer()
+                errorImageView.visibility = View.INVISIBLE
+                shimmerView.visibility = View.INVISIBLE
+                rvPostalDetails.visibility = View.VISIBLE
+            }
         }
         postalViewModel.errorLiveData.observe(this) {
             Toast.makeText(this, " API Error ", Toast.LENGTH_LONG).show()
