@@ -2,6 +2,8 @@ package com.omar.zippoapp.activity
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -15,7 +17,7 @@ import com.omar.zippoapp.viewModel.PostalViewModel
 
 class ResultPage : AppCompatActivity() {
     companion object {
-        var isInvalidInput = false
+        var isInvalidInput = true
     }
 
     private lateinit var binding: ResultsPageBinding
@@ -38,34 +40,44 @@ class ResultPage : AppCompatActivity() {
             rvPostalDetails.layoutManager = LinearLayoutManager(this@ResultPage)
             rvPostalDetails.adapter = recyclerAdapter
             shimmerView.startShimmer()
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (isInvalidInput == true) {
+                    binding.errorImageView.visibility = View.VISIBLE
+                }
+            }, 6000)
         }
         intent.extras?.let {
             postalCodeInput = it.getString("postalCodeInput") as String
         }
-        isInvalidInput=false
         postalViewModel.makeAPICall(postalCodeInput)
+        isInvalidInput = false
 
-        if(isInvalidInput){
-            Toast.makeText(this, "Invalid Input ", Toast.LENGTH_LONG).show()
 
-        }
         postalViewModel.postalCodeList.observe(this) {
             val searchResults = it
-            recyclerAdapter.setAddressList(searchResults)
-            recyclerAdapter.notifyDataSetChanged()
+            if (searchResults != null) {
+                isInvalidInput = false
+                recyclerAdapter.setAddressList(searchResults)
+                recyclerAdapter.notifyDataSetChanged()
+                with(binding) {
+                    shimmerView.stopShimmer()
+                    shimmerView.visibility = View.INVISIBLE
+                    rvPostalDetails.visibility = View.VISIBLE
 
-            with(binding) {
-                shimmerView.stopShimmer()
-                errorImageView.visibility = View.INVISIBLE
-                shimmerView.visibility = View.INVISIBLE
-                rvPostalDetails.visibility = View.VISIBLE
+                }
             }
         }
         postalViewModel.errorLiveData.observe(this) {
-            Toast.makeText(this, " API Error ", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, " API or Network Error, Please try again. ", Toast.LENGTH_LONG).show()
+            with(binding) {
+                shimmerView.stopShimmer()
+                shimmerView.visibility = View.INVISIBLE
+                errorImageView.visibility = View.VISIBLE
+            }
         }
 
     }
+
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)

@@ -38,6 +38,7 @@ class PostalViewModel : ViewModel() {
             } else {
                 _errorLiveData.value = "error occurred"
             }
+
         }
     }
 }
