@@ -68,7 +68,8 @@ class ResultPage : AppCompatActivity() {
             }
         }
         postalViewModel.errorLiveData.observe(this) {
-            Toast.makeText(this, " API or Network Error, Please try again. ", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, " API or Network Error, Please try again. ", Toast.LENGTH_LONG)
+                .show()
             with(binding) {
                 shimmerView.stopShimmer()
                 shimmerView.visibility = View.INVISIBLE
